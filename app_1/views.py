@@ -1,3 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
-# Create your views here.
+def url1(request):
+    return HttpResponse("Ответ 1")
+
+def url2(request):
+    return HttpResponse("Ответ 2")
+
