@@ -1,4 +1,9 @@
 from django.db import models
 
-class Car(models.Model):
-    name = models.CharField("Название автомобиля", max_length=30)
+class Mebel(models.Model):
+    link = models.TextField("Ссылка")
+    price = models.DecimalField("Цена", decimal_places=2, max_digits=12)
+    description = models.TextField("Название автомобиля")
+    
+    def __str__(self):
+        return f'{self.price} | {self.description}'

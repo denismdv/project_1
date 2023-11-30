@@ -1,9 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from .models import Mebel
 
-def url1(request):
-    return HttpResponse("Ответ 1")
-
-def url2(request):
-    return HttpResponse("Ответ 2")
-
+def show_all(request):
+    mebels = Mebel.objects.all().order_by('price')
+    return render(request, 'app_1/show_all.html', {'mebels': mebels})
