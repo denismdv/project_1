@@ -16,7 +16,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for mebel in mebels %}
+            {% for mebel in page_obj %}
             <tr>
                 <td><b>{{mebel.pk}}</b></td>
                 <td>{{mebel.parse_date_time}}</td>
@@ -39,6 +39,17 @@
             {% endfor %}
             </tbody>
         </table>
+        <div>
+        {% if page_obj.has_previous %}
+            <a href="?page=1">Первая страница</a>
+            <a href="?page={{page_obj.previous_page_number}}">Предыдущая страница</a>
+        {% endif %}
+        Страница {{page_obj.number}} из {{page_obj.paginator.num_pages}}.
+        {% if page_obj.has_next %}
+            <a href="?page={{page_obj.next_page_number}}">Следующая страница</a>
+            <a href="?page={{page_obj.paginator.num_pages}}">Последняя страница</a>
+        {% endif %}
+        </div>
 {% else %}
     <h2>К сожалению мебели нету</h2>
 {% endif %}
