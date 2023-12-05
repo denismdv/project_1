@@ -5,15 +5,22 @@ from .forms import UpdateItemForm
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
+from django.core.paginator import Paginator
 
 def show_all(request):
     mebels = Mebel.objects.all().order_by('price')
-    return render(request, 'app_1/show_all.html', {'mebels': mebels})
+    paginator = Paginator(mebels, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'app_1/show_all.html', {'mebels': mebels, 'page_obj': page_obj})
 
 def show_all_admin(request):
     form = UpdateItemForm()
     mebels = Mebel.objects.all().order_by('price')
-    return render(request, 'app_1/show_admin_item.html', {'mebels': mebels, 'form': form})
+    paginator = Paginator(mebels, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'app_1/show_admin_item.html', {'mebels': mebels, 'form': form, 'page_obj': page_obj})
 
 def show_item(request, item_id):
     item = Mebel.objects.get(pk=item_id)
